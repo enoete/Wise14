@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💡 Lesson 14 Vocabulary Test - The Wizard of Menlo Park!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap');
+
+        :root {
+            --gold: #f5c842;
+            --amber: #e8a020;
+            --dark: #1a1208;
+            --warm: #3d2b0a;
+            --cream: #fdf6e3;
+            --light: #fffbf0;
+            --accent: #c8440a;
+            --green: #2d6a2d;
+            --correct: #2d7d2d;
+            --wrong: #c0392b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Source Serif 4', Georgia, serif;
+            background: var(--dark);
+            color: var(--cream);
+            min-height: 100vh;
+        }
+
+        /* Decorative background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(245,200,66,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(200,68,10,0.06) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 16px;
+        }
+
+        /* HEADER */
+        .header {
+            text-align: center;
+            padding: 40px 20px 30px;
+            border-bottom: 3px solid var(--gold);
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.4em;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        .header p {
+            font-style: italic;
+            color: #c8a870;
+            margin-top: 8px;
+            font-size: 1.1em;
+        }
+
+        .bulb-icon {
+            font-size: 3em;
+            display: block;
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 4px #f5c84280); }
+            to { filter: drop-shadow(0 0 16px #f5c842cc); }
+        }
+
+        /* PROGRESS */
+        .progress-wrap {
+            margin: 16px auto 0;
+            max-width: 400px;
+        }
+
+        .progress-bar-bg {
+            height: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--amber), var(--gold));
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .progress-text {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85em;
+            color: var(--gold);
+            text-align: center;
+            margin-top: 6px;
+            letter-spacing: 1px;
+        }
+
+        /* NAV TABS */
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 28px;
+        }
+
+        .nav-btn {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85em;
+            letter-spacing: 1px;
+            padding: 8px 16px;
+            border: 2px solid var(--gold);
+            background: transparent;
+            color: var(--gold);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        /* SECTION */
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.6em;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+        }
+
+        .section-subtitle {
+            font-style: italic;
+            color: #c8a870;
+            margin-bottom: 24px;
+            font-size: 0.95em;
+        }
+
+        /* WORD LIST */
+        .word-list-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .word-card {
+            background: rgba(245,200,66,0.06);
+            border: 1px solid rgba(245,200,66,0.25);
+            border-radius: 8px;
+            padding: 14px;
+        }
+
+        .word-card .word-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1em;
+            color: var(--gold);
+            margin-bottom: 6px;
+        }
+
+        .word-card .word-def {
+            font-size: 0.88em;
+            color: #d4b896;
+            line-height: 1.5;
+        }
+
+        .word-card .word-ex {
+            font-style: italic;
+            font-size: 0.82em;
+            color: #a89070;
+            margin-top: 6px;
+        }
+
+        .fun-fact {
+            background: linear-gradient(135deg, rgba(200,68,10,0.15), rgba(245,200,66,0.08));
+            border-left: 4px solid var(--accent);
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px;
+            margin: 20px 0;
+            font-size: 0.93em;
+            line-height: 1.7;
+            color: #e0c8a0;
+        }
+
+        .fun-fact strong { color: var(--gold); }
+
+        /* QUESTION CARD */
+        .q-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(245,200,66,0.15);
+            border-radius: 8px;
+            padding: 18px 20px;
+            margin-bottom: 16px;
+        }
+
+        .q-num {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.8em;
+            color: var(--amber);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .q-text {
+            font-size: 0.97em;
+            line-height: 1.6;
+            color: var(--cream);
+            margin-bottom: 14px;
+        }
+
+        .q-text strong { color: var(--gold); }
+
+        /* CHOICE OPTIONS */
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .choice {
+            padding: 10px 14px;
+            border: 1.5px solid rgba(245,200,66,0.25);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.93em;
+            color: #d4b896;
+            background: rgba(255,255,255,0.02);
+            transition: all 0.18s;
+            user-select: none;
+        }
+
+        .choice:hover { 
+            border-color: var(--gold); 
+            color: var(--gold);
+            background: rgba(245,200,66,0.06);
+        }
+
+        .choice.selected { 
+            border-color: var(--amber); 
+            background: rgba(245,200,66,0.12);
+            color: var(--gold);
+        }
+
+        .choice.correct { 
+            border-color: var(--correct); 
+            background: rgba(45,125,45,0.18);
+            color: #7dea7d;
+        }
+
+        .choice.wrong { 
+            border-color: var(--wrong); 
+            background: rgba(192,57,43,0.18);
+            color: #ff9090;
+        }
+
+        /* PHRASE MATCHING (14A style) */
+        .phrase-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        @media(max-width: 500px) {
+            .phrase-grid { grid-template-columns: 1fr; }
+        }
+
+        .phrase-btn {
+            padding: 10px 12px;
+            border: 1.5px solid rgba(245,200,66,0.25);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.88em;
+            color: #d4b896;
+            background: rgba(255,255,255,0.02);
+            text-align: left;
+            transition: all 0.18s;
+            user-select: none;
+        }
+
+        .phrase-btn:hover { border-color: var(--gold); color: var(--gold); }
+        .phrase-btn.selected { border-color: var(--amber); background: rgba(245,200,66,0.12); color: var(--gold); }
+        .phrase-btn.correct { border-color: var(--correct); background: rgba(45,125,45,0.18); color: #7dea7d; }
+        .phrase-btn.wrong { border-color: var(--wrong); background: rgba(192,57,43,0.18); color: #ff9090; }
+
+        .combined-sentence {
+            padding: 10px 14px;
+            border-radius: 6px;
+            background: rgba(245,200,66,0.06);
+            border: 1px dashed rgba(245,200,66,0.3);
+            font-style: italic;
+            font-size: 0.9em;
+            color: #c8b080;
+            min-height: 38px;
+            margin-top: 8px;
+        }
+
+        /* MULTI-SELECT NOTE */
+        .multi-note {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.82em;
+            color: var(--amber);
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+
+        /* PASSAGE */
+        .passage-box {
+            background: rgba(245,200,66,0.04);
+            border: 1px solid rgba(245,200,66,0.2);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+            line-height: 1.9;
+            font-size: 0.95em;
+            color: #e0ccaa;
+        }
+
+        .passage-box h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.4em;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 14px;
+            letter-spacing: 1px;
+        }
+
+        .passage-box strong { color: var(--gold); }
+
+        /* CHECK BUTTON */
+        .check-btn {
+            display: block;
+            margin: 24px auto 0;
+            padding: 12px 36px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: var(--gold);
+            color: var(--dark);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+
+        .check-btn:hover { background: var(--amber); transform: translateY(-1px); }
+
+        /* SCORE */
+        .score-box {
+            text-align: center;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2em;
+            letter-spacing: 1px;
+        }
+
+        .score-box.good { background: rgba(45,125,45,0.2); border: 1px solid var(--correct); color: #7dea7d; }
+        .score-box.ok { background: rgba(245,200,66,0.1); border: 1px solid var(--amber); color: var(--gold); }
+        .score-box.low { background: rgba(192,57,43,0.2); border: 1px solid var(--wrong); color: #ff9090; }
+
+        /* MATCHING */
+        .match-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        @media(max-width:480px) { .match-container { grid-template-columns: 1fr; } }
+
+        .match-col { display: flex; flex-direction: column; gap: 8px; }
+        .match-col-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.78em;
+            color: var(--amber);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        .match-item {
+            padding: 10px 12px;
+            border: 1.5px solid rgba(245,200,66,0.25);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.88em;
+            color: #d4b896;
+            background: rgba(255,255,255,0.02);
+            text-align: center;
+            transition: all 0.18s;
+            user-select: none;
+        }
+
+        .match-item:hover { border-color: var(--gold); color: var(--gold); }
+        .match-item.selected { border-color: var(--amber); background: rgba(245,200,66,0.15); color: var(--gold); }
+        .match-item.matched-correct { border-color: var(--correct); background: rgba(45,125,45,0.18); color: #7dea7d; pointer-events: none; }
+        .match-item.matched-wrong { border-color: var(--wrong); background: rgba(192,57,43,0.18); color: #ff9090; }
+
+        .match-feedback {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.82em;
+            text-align: center;
+            margin-top: 6px;
+            letter-spacing: 0.5px;
+            min-height: 20px;
+        }
+
+        /* TRUE/FALSE */
+        .tf-wrap { display: flex; gap: 10px; }
+
+        .tf-btn {
+            flex: 1;
+            padding: 10px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.95em;
+            letter-spacing: 1px;
+            border: 1.5px solid rgba(245,200,66,0.25);
+            border-radius: 6px;
+            background: rgba(255,255,255,0.02);
+            color: #d4b896;
+            cursor: pointer;
+            transition: all 0.18s;
+        }
+
+        .tf-btn:hover { border-color: var(--gold); color: var(--gold); }
+        .tf-btn.selected { border-color: var(--amber); background: rgba(245,200,66,0.12); color: var(--gold); }
+        .tf-btn.correct { border-color: var(--correct); background: rgba(45,125,45,0.18); color: #7dea7d; }
+        .tf-btn.wrong { border-color: var(--wrong); background: rgba(192,57,43,0.18); color: #ff9090; }
+
+        hr.divider {
+            border: none;
+            border-top: 1px solid rgba(245,200,66,0.15);
+            margin: 28px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+
+    <!-- HEADER -->
+    <div class="header">
+        <span class="bulb-icon">💡</span>
+        <h1>Lesson 14 Vocabulary Test</h1>
+        <p>The Wizard of Menlo Park ⚡ Thomas Edison</p>
+        <div class="progress-wrap">
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
+            <div class="progress-text" id="progressText">Progress: 0% complete</div>
+        </div>
+    </div>
+
+    <!-- NAV -->
+    <div class="nav-tabs">
+        <button class="nav-btn active" onclick="showSection('words')">📖 Word List</button>
+        <button class="nav-btn" onclick="showSection('secA')">14A Finding Meanings</button>
+        <button class="nav-btn" onclick="showSection('secB')">14B Just the Right Word</button>
+        <button class="nav-btn" onclick="showSection('secC')">14C Applying Meanings</button>
+        <button class="nav-btn" onclick="showSection('secD')">14D Word Study</button>
+        <button class="nav-btn" onclick="showSection('secE')">14E Passage</button>
+    </div>
+
+    <!-- ==================== WORD LIST ==================== -->
+    <div id="words" class="section active">
+        <div class="section-title">Word List 14</div>
+        <div class="section-subtitle">Study these words before tackling the exercises.</div>
+
+        <div class="word-list-grid">
+            <div class="word-card">
+                <div class="word-name">access</div>
+                <div class="word-def"><em>n.</em> 1. Freedom or permission to enter. 2. A way of approach or entry.<br>
+                <em>accessible adj.</em> Able to be used or entered.</div>
+                <div class="word-ex">"The students want access to the gym this summer."</div>
+            </div>
+            <div class="word-card">
+                <div class="word-name">associate</div>
+                <div class="word-def"><em>v.</em> 1. To bring together in the mind. 2. To come or be together as friends or companions.<br>
+                <em>n.</em> A person with whom one is connected in some way.</div>
+                <div class="word-ex">"Many people associate lobsters with Maine."</div>
+            </div>
+            <div class="word-card">
+                <div class="word-name">boisterous</div>
+                <div class="word-def"><em>adj.</em> Noisy and uncontrolled.</div>
+                <div class="word-ex">"The Dixons' party became so boisterous that their neighbors complained."</div>
+            </div>
+            <div class="word-card">
+                <div class="word-name">brilliant</div>
+                <div class="word-def"><em>adj.</em> 1. Very bright; sparkling. 2. Very clever or smart.</div>
+                <div class="word-ex">"Einstein's brilliant mind was already evident in his youth."</div>
+            </div>
+            <div class="word-card">
+                <div class="word-name">decade</div>
+                <div class="word-def"><em>n.</em> A ten-year period.</div>
+                <div class="word-ex">"Some people look back with nostalgia to the decade of the 1960s."</div>
+            </div>
+            <div class="word-card">
+                <div class="word-name">delicate</div>
+                <div class="word-def"><em>adj.</em> 1. Easily broken or damaged. 2. Needing care and skill. 3. In poor health; weak.</div>
+                <div class="word-ex">"We always wash this delicate china by hand."</div>
+            </div>
+            <div class="word-card">
+                <div class="word-name">employ</div>
+                <div class="word-def"><em>v.</em> 1. To hire and put to work for pay. 2. To use.</div>
+                <div class="word-ex">"Carmen's gift shop employs four people."</div>
+            </div>
+            <div class="word-card">
+                <div class="word-name">idle</div>
+                <div class="word-def"><em>adj.</em> Doing nothing; not working.<br>
+                <em>v.</em> 1. To spend one's time doing nothing. 2. To run (an engine) slowly.</div>
+                <div class="word-ex">"The workers were idle while the power was shut off."</div>
+            </div>
+            <div class="word-card">
+                <div class="word-name">illuminate</div>
+                <div class="word-def"><em>v.</em> 1. To light up; to supply with light. 2. To make clear or understandable.</div>
+                <div class="word-ex">"The full moon illuminated the path through the woods."</div>
+            </div>
+            <div class="word-card">
+                <div class="word-name">provide</div>
+                <div class="word-def"><em>v.</em> 1. To give what is needed; to supply. 2. To set forth as a condition.</div>
+                <div class="word-ex">"Two local companies provided the money to buy our school band uniforms."</div>
+            </div>
+            <div class="word-card">
+                <div class="word-name">require</div>
+                <div class="word-def"><em>v.</em> To need or demand.<br>
+                <em>requirement n.</em> Something that is necessary.</div>
+                <div class="word-ex">"Plants require light and water in order to grow."</div>
+            </div>
+            <div class="word-card">
+                <div class="word-name">taunt</div>
+                <div class="word-def"><em>v.</em> To make fun of in an insulting way; to jeer.<br>
+                <em>n.</em> An insulting remark.</div>
+                <div class="word-ex">"Don't taunt someone just because that person appears different."</div>
+            </div>
+            <div class="word-card">
+                <div class="word-name">tolerant</div>
+                <div class="word-def"><em>adj.</em> Willing to let others have their own beliefs and ways.<br>
+                <em>tolerate v.</em> To accept willingly and without complaining.</div>
+                <div class="word-ex">"Traveling is both interesting and enjoyable if you are tolerant of customs that seem strange."</div>
+            </div>
+            <div class="word-card">
+                <div class="word-name">transform</div>
+                <div class="word-def"><em>v.</em> To change the form, looks, or nature of.<br>
+                <em>transformation n.</em> A complete change.</div>
+                <div class="word-ex">"A fresh coat of paint will transform this room."</div>
+            </div>
+            <div class="word-card">
+                <div class="word-name">wilderness</div>
+                <div class="word-def"><em>n.</em> An area where there are few people living; an area still in its natural state.</div>
+                <div class="word-ex">"The Rocky Mountain states contain large areas of wilderness."</div>
+            </div>
+        </div>
+
+        <div class="fun-fact">
+            ⚡ <strong>Fun Facts — Edison's World:</strong> Thomas Edison was born in Ohio in 1847. As a child, scarlet fever left him in 
+            <strong>delicate</strong> health, so his mother took him out of <strong>boisterous</strong> school and taught him at home. At the time, 
+            much of Michigan was <strong>wilderness</strong>. The railroad <strong>transformed</strong> America, making remote places 
+            <strong>accessible</strong>. Edison's first job was to sell newspapers on the train that <strong>provided</strong> him with 
+            <strong>access</strong> to Detroit. As a telegraph operator he hated to be <strong>idle</strong>, so he experimented constantly. 
+            His <strong>brilliant</strong> mind was always working. Over five <strong>decades</strong>, he was granted over 1,000 patents. 
+            He even had <strong>associates</strong> at his Menlo Park laboratory — a true inventions factory! His greatest invention, 
+            the electric bulb, would forever <strong>illuminate</strong> the world. 💡
+        </div>
+    </div>
+
+    <!-- ==================== 14A: FINDING MEANINGS ==================== -->
+    <div id="secA" class="section">
+        <div class="section-title">14A — Finding Meanings</div>
+        <div class="section-subtitle">Choose two phrases to form a sentence that correctly uses a Lesson 14 word. Click the two phrases that go together, then click Check.</div>
+
+        <!-- Q1 -->
+        <div class="q-card">
+            <div class="q-num">Question 1</div>
+            <div class="q-text">Form a sentence using the word <strong>BRILLIANT</strong>.</div>
+            <div class="phrase-grid" id="a1">
+                <div class="phrase-btn" data-q="a1" data-val="a" data-pair="b" onclick="selectPhrase(this)">(a) is unusually smart.</div>
+                <div class="phrase-btn" data-q="a1" data-val="b" data-pair="a" onclick="selectPhrase(this)">(b) A brilliant child is one who</div>
+                <div class="phrase-btn" data-q="a1" data-val="c" onclick="selectPhrase(this)">(c) A brilliant child is one who</div>
+                <div class="phrase-btn" data-q="a1" data-val="d" onclick="selectPhrase(this)">(d) is noisy and rough.</div>
+            </div>
+            <div class="combined-sentence" id="a1-sentence">Your sentence will appear here...</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="q-card">
+            <div class="q-num">Question 2</div>
+            <div class="q-text">Form a sentence using the word <strong>EMPLOY</strong>.</div>
+            <div class="phrase-grid" id="a2">
+                <div class="phrase-btn" data-q="a2" data-val="a" onclick="selectPhrase(this)">(a) give that person a job.</div>
+                <div class="phrase-btn" data-q="a2" data-val="b" onclick="selectPhrase(this)">(b) give that person a second chance.</div>
+                <div class="phrase-btn" data-q="a2" data-val="c" data-pair="a" onclick="selectPhrase(this)">(c) To employ someone is to</div>
+                <div class="phrase-btn" data-q="a2" data-val="d" onclick="selectPhrase(this)">(d) To tolerate someone is to</div>
+            </div>
+            <div class="combined-sentence" id="a2-sentence">Your sentence will appear here...</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="q-card">
+            <div class="q-num">Question 3</div>
+            <div class="q-text">Form a sentence using the word <strong>REQUIRE / PROVIDE</strong>.</div>
+            <div class="phrase-grid" id="a3">
+                <div class="phrase-btn" data-q="a3" data-val="a" onclick="selectPhrase(this)">(a) give it up.</div>
+                <div class="phrase-btn" data-q="a3" data-val="b" data-pair="d" onclick="selectPhrase(this)">(b) To provide something is to</div>
+                <div class="phrase-btn" data-q="a3" data-val="c" onclick="selectPhrase(this)">(c) To require something is to</div>
+                <div class="phrase-btn" data-q="a3" data-val="d" data-pair="b" onclick="selectPhrase(this)">(d) need it.</div>
+            </div>
+            <div class="combined-sentence" id="a3-sentence">Your sentence will appear here...</div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="q-card">
+            <div class="q-num">Question 4</div>
+            <div class="q-text">Form a sentence using the word <strong>ACCESS / WILDERNESS</strong>.</div>
+            <div class="phrase-grid" id="a4">
+                <div class="phrase-btn" data-q="a4" data-val="a" onclick="selectPhrase(this)">(a) Wilderness is</div>
+                <div class="phrase-btn" data-q="a4" data-val="b" onclick="selectPhrase(this)">(b) remoteness in space or time.</div>
+                <div class="phrase-btn" data-q="a4" data-val="c" onclick="selectPhrase(this)">(c) a way of entering.</div>
+                <div class="phrase-btn" data-q="a4" data-val="d" data-pair="c" onclick="selectPhrase(this)">(d) Access is</div>
+            </div>
+            <div class="combined-sentence" id="a4-sentence">Your sentence will appear here...</div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="q-card">
+            <div class="q-num">Question 5</div>
+            <div class="q-text">Form a sentence using the word <strong>ASSOCIATE / DECADE</strong>.</div>
+            <div class="phrase-grid" id="a5">
+                <div class="phrase-btn" data-q="a5" data-val="a" data-pair="c" onclick="selectPhrase(this)">(a) a business partner.</div>
+                <div class="phrase-btn" data-q="a5" data-val="b" data-pair="a" onclick="selectPhrase(this)">(b) An associate is</div>
+                <div class="phrase-btn" data-q="a5" data-val="c" onclick="selectPhrase(this)">(c) A decade is</div>
+                <div class="phrase-btn" data-q="a5" data-val="d" onclick="selectPhrase(this)">(d) an insulting remark.</div>
+            </div>
+            <div class="combined-sentence" id="a5-sentence">Your sentence will appear here...</div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="q-card">
+            <div class="q-num">Question 6</div>
+            <div class="q-text">Form a sentence using the word <strong>ILLUMINATE / TRANSFORM</strong>.</div>
+            <div class="phrase-grid" id="a6">
+                <div class="phrase-btn" data-q="a6" data-val="a" data-pair="b" onclick="selectPhrase(this)">(a) to light it up.</div>
+                <div class="phrase-btn" data-q="a6" data-val="b" data-pair="a" onclick="selectPhrase(this)">(b) To illuminate a room is</div>
+                <div class="phrase-btn" data-q="a6" data-val="c" onclick="selectPhrase(this)">(c) To transform a room is</div>
+                <div class="phrase-btn" data-q="a6" data-val="d" onclick="selectPhrase(this)">(d) to make it available.</div>
+            </div>
+            <div class="combined-sentence" id="a6-sentence">Your sentence will appear here...</div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="q-card">
+            <div class="q-num">Question 7</div>
+            <div class="q-text">Form a sentence using the word <strong>IDLE / BOISTEROUS</strong>.</div>
+            <div class="phrase-grid" id="a7">
+                <div class="phrase-btn" data-q="a7" data-val="a" data-pair="d" onclick="selectPhrase(this)">(a) An idle person is one who is</div>
+                <div class="phrase-btn" data-q="a7" data-val="b" onclick="selectPhrase(this)">(b) A boisterous person is one who is</div>
+                <div class="phrase-btn" data-q="a7" data-val="c" onclick="selectPhrase(this)">(c) noisy and rough.</div>
+                <div class="phrase-btn" data-q="a7" data-val="d" data-pair="a" onclick="selectPhrase(this)">(d) not doing anything productive.</div>
+            </div>
+            <div class="combined-sentence" id="a7-sentence">Your sentence will appear here...</div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="q-card">
+            <div class="q-num">Question 8</div>
+            <div class="q-text">Form a sentence using the word <strong>TAUNT / TRANSFORMATION</strong>.</div>
+            <div class="phrase-grid" id="a8">
+                <div class="phrase-btn" data-q="a8" data-val="a" onclick="selectPhrase(this)">(a) a reassuring remark.</div>
+                <div class="phrase-btn" data-q="a8" data-val="b" data-pair="a" onclick="selectPhrase(this)">(b) A taunt is</div>
+                <div class="phrase-btn" data-q="a8" data-val="c" data-pair="d" onclick="selectPhrase(this)">(c) A transformation is</div>
+                <div class="phrase-btn" data-q="a8" data-val="d" data-pair="c" onclick="selectPhrase(this)">(d) a complete change.</div>
+            </div>
+            <div class="combined-sentence" id="a8-sentence">Your sentence will appear here...</div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="q-card">
+            <div class="q-num">Question 9</div>
+            <div class="q-text">Form a sentence using the word <strong>ACCESSIBLE / IDLE</strong>.</div>
+            <div class="phrase-grid" id="a9">
+                <div class="phrase-btn" data-q="a9" data-val="a" onclick="selectPhrase(this)">(a) one that runs sluggishly.</div>
+                <div class="phrase-btn" data-q="a9" data-val="b" data-pair="c" onclick="selectPhrase(this)">(b) An accessible machine is</div>
+                <div class="phrase-btn" data-q="a9" data-val="c" data-pair="b" onclick="selectPhrase(this)">(c) one that is easy to get to.</div>
+                <div class="phrase-btn" data-q="a9" data-val="d" onclick="selectPhrase(this)">(d) An idle machine is</div>
+            </div>
+            <div class="combined-sentence" id="a9-sentence">Your sentence will appear here...</div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="q-card">
+            <div class="q-num">Question 10</div>
+            <div class="q-text">Form a sentence using the word <strong>TOLERATE / PROVIDE</strong>.</div>
+            <div class="phrase-grid" id="a10">
+                <div class="phrase-btn" data-q="a10" data-val="a" onclick="selectPhrase(this)">(a) is to put up with it.</div>
+                <div class="phrase-btn" data-q="a10" data-val="b" onclick="selectPhrase(this)">(b) To provide something</div>
+                <div class="phrase-btn" data-q="a10" data-val="c" data-pair="a" onclick="selectPhrase(this)">(c) To tolerate something</div>
+                <div class="phrase-btn" data-q="a10" data-val="d" onclick="selectPhrase(this)">(d) is to do without it.</div>
+            </div>
+            <div class="combined-sentence" id="a10-sentence">Your sentence will appear here...</div>
+        </div>
+
+        <button class="check-btn" onclick="checkSectionA()">✓ Check Section 14A</button>
+        <div class="score-box" id="scoreA" style="display:none"></div>
+    </div>
+
+    <!-- ==================== 14B: JUST THE RIGHT WORD ==================== -->
+    <div id="secB" class="section">
+        <div class="section-title">14B — Just the Right Word</div>
+        <div class="section-subtitle">Replace the bold phrase with the correct Lesson 14 vocabulary word (or its form). Click your choice.</div>
+
+        <div class="q-card">
+            <div class="q-num">Question 1</div>
+            <div class="q-text">Much of Alaska is <strong>land that is still in its natural state</strong> that needs to be protected.</div>
+            <div class="choices" id="b1">
+                <div class="choice" onclick="selectChoice(this,'b1','wilderness')">wilderness</div>
+                <div class="choice" onclick="selectChoice(this,'b1','wilderness')">decade</div>
+                <div class="choice" onclick="selectChoice(this,'b1','wilderness')">access</div>
+                <div class="choice" onclick="selectChoice(this,'b1','wilderness')">transformation</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 2</div>
+            <div class="q-text">In cold weather, let the engine <strong>run slowly</strong> for a few minutes before you drive anyplace.</div>
+            <div class="choices" id="b2">
+                <div class="choice" onclick="selectChoice(this,'b2','idle')">idle</div>
+                <div class="choice" onclick="selectChoice(this,'b2','idle')">employ</div>
+                <div class="choice" onclick="selectChoice(this,'b2','idle')">transform</div>
+                <div class="choice" onclick="selectChoice(this,'b2','idle')">require</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 3</div>
+            <div class="q-text">Samantha hated school because some of her classmates <strong>made fun of</strong> her for the way she spoke.</div>
+            <div class="choices" id="b3">
+                <div class="choice" onclick="selectChoice(this,'b3','taunted')">taunted</div>
+                <div class="choice" onclick="selectChoice(this,'b3','taunted')">employed</div>
+                <div class="choice" onclick="selectChoice(this,'b3','taunted')">required</div>
+                <div class="choice" onclick="selectChoice(this,'b3','taunted')">associated</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 4</div>
+            <div class="q-text">The <strong>ten-year period</strong> that ended in 1929 was called "the Roaring Twenties."</div>
+            <div class="choices" id="b4">
+                <div class="choice" onclick="selectChoice(this,'b4','decade')">decade</div>
+                <div class="choice" onclick="selectChoice(this,'b4','decade')">wilderness</div>
+                <div class="choice" onclick="selectChoice(this,'b4','decade')">access</div>
+                <div class="choice" onclick="selectChoice(this,'b4','decade')">requirement</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 5</div>
+            <div class="q-text">These new curtains will <strong>completely change the appearance of</strong> this bedroom.</div>
+            <div class="choices" id="b5">
+                <div class="choice" onclick="selectChoice(this,'b5','transform')">transform</div>
+                <div class="choice" onclick="selectChoice(this,'b5','transform')">illuminate</div>
+                <div class="choice" onclick="selectChoice(this,'b5','transform')">employ</div>
+                <div class="choice" onclick="selectChoice(this,'b5','transform')">provide</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 6</div>
+            <div class="q-text">The matter is <strong>one that needs careful handling</strong>, but I am confident that you can take care of it.</div>
+            <div class="choices" id="b6">
+                <div class="choice" onclick="selectChoice(this,'b6','delicate')">delicate</div>
+                <div class="choice" onclick="selectChoice(this,'b6','delicate')">boisterous</div>
+                <div class="choice" onclick="selectChoice(this,'b6','delicate')">idle</div>
+                <div class="choice" onclick="selectChoice(this,'b6','delicate')">brilliant</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 7</div>
+            <div class="q-text">This new health insurance will <strong>make sure that you will be covered</strong> for full payment of medical expenses.</div>
+            <div class="choices" id="b7">
+                <div class="choice" onclick="selectChoice(this,'b7','provide')">provide</div>
+                <div class="choice" onclick="selectChoice(this,'b7','provide')">require</div>
+                <div class="choice" onclick="selectChoice(this,'b7','provide')">associate</div>
+                <div class="choice" onclick="selectChoice(this,'b7','provide')">transform</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 8</div>
+            <div class="q-text">This book <strong>makes clear and understandable</strong> how the two scientists figured out the structure of DNA.</div>
+            <div class="choices" id="b8">
+                <div class="choice" onclick="selectChoice(this,'b8','illuminates')">illuminates</div>
+                <div class="choice" onclick="selectChoice(this,'b8','illuminates')">transforms</div>
+                <div class="choice" onclick="selectChoice(this,'b8','illuminates')">requires</div>
+                <div class="choice" onclick="selectChoice(this,'b8','illuminates')">employs</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 9</div>
+            <div class="q-text">I would be happier if my older sister were more <strong>willing to overlook the faults of others</strong> and less rigid.</div>
+            <div class="choices" id="b9">
+                <div class="choice" onclick="selectChoice(this,'b9','tolerant')">tolerant</div>
+                <div class="choice" onclick="selectChoice(this,'b9','tolerant')">brilliant</div>
+                <div class="choice" onclick="selectChoice(this,'b9','tolerant')">boisterous</div>
+                <div class="choice" onclick="selectChoice(this,'b9','tolerant')">accessible</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 10</div>
+            <div class="q-text">One <strong>thing that is necessary</strong> to attend the new school is a uniform.</div>
+            <div class="choices" id="b10">
+                <div class="choice" onclick="selectChoice(this,'b10','requirement')">requirement</div>
+                <div class="choice" onclick="selectChoice(this,'b10','requirement')">transformation</div>
+                <div class="choice" onclick="selectChoice(this,'b10','requirement')">provision</div>
+                <div class="choice" onclick="selectChoice(this,'b10','requirement')">decade</div>
+            </div>
+        </div>
+
+        <button class="check-btn" onclick="checkSectionB()">✓ Check Section 14B</button>
+        <div class="score-box" id="scoreB" style="display:none"></div>
+    </div>
+
+    <!-- ==================== 14C: APPLYING MEANINGS ==================== -->
+    <div id="secC" class="section">
+        <div class="section-title">14C — Applying Meanings</div>
+        <div class="section-subtitle">Circle the letter(s) of each correct answer. Some questions have MORE THAN ONE correct answer!</div>
+        <div class="multi-note">⚠️ Some questions have MULTIPLE correct answers — click all that apply!</div>
+
+        <!-- Q1 -->
+        <div class="q-card">
+            <div class="q-num">Question 1</div>
+            <div class="q-text">Which of the following might an <strong>idle</strong> person do?</div>
+            <div class="choices" id="c1">
+                <div class="choice" onclick="toggleMulti(this,'c1',true)">(a) watch television ✓</div>
+                <div class="choice" onclick="toggleMulti(this,'c1',false)">(b) bask in the sun ✓</div>
+                <div class="choice" onclick="toggleMulti(this,'c1',false)">(c) win an Olympic medal</div>
+                <div class="choice" onclick="toggleMulti(this,'c1',false)">(d) write a book</div>
+            </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="q-card">
+            <div class="q-num">Question 2</div>
+            <div class="q-text">Which of the following could be a means of <strong>access</strong>?</div>
+            <div class="choices" id="c2">
+                <div class="choice" onclick="toggleMulti(this,'c2',true)">(a) a door ✓</div>
+                <div class="choice" onclick="toggleMulti(this,'c2',false)">(b) a wall</div>
+                <div class="choice" onclick="toggleMulti(this,'c2',true)">(c) an opening ✓</div>
+                <div class="choice" onclick="toggleMulti(this,'c2',true)">(d) a window ✓</div>
+            </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="q-card">
+            <div class="q-num">Question 3</div>
+            <div class="q-text">Which of the following are closely <strong>associated</strong>?</div>
+            <div class="choices" id="c3">
+                <div class="choice" onclick="toggleMulti(this,'c3',true)">(a) baseball and summer ✓</div>
+                <div class="choice" onclick="toggleMulti(this,'c3',true)">(b) salt and pepper ✓</div>
+                <div class="choice" onclick="toggleMulti(this,'c3',true)">(c) Hansel and Gretel ✓</div>
+                <div class="choice" onclick="toggleMulti(this,'c3',false)">(d) snowflakes and cornflakes</div>
+            </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="q-card">
+            <div class="q-num">Question 4</div>
+            <div class="q-text">Which of the following can be <strong>brilliant</strong>?</div>
+            <div class="choices" id="c4">
+                <div class="choice" onclick="toggleMulti(this,'c4',true)">(a) a diamond ✓</div>
+                <div class="choice" onclick="toggleMulti(this,'c4',true)">(b) an idea ✓</div>
+                <div class="choice" onclick="toggleMulti(this,'c4',true)">(c) moonlight ✓</div>
+                <div class="choice" onclick="toggleMulti(this,'c4',true)">(d) a student ✓</div>
+            </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="q-card">
+            <div class="q-num">Question 5</div>
+            <div class="q-text">Which of the following can be <strong>delicate</strong>?</div>
+            <div class="choices" id="c5">
+                <div class="choice" onclick="toggleMulti(this,'c5',true)">(a) a china plate ✓</div>
+                <div class="choice" onclick="toggleMulti(this,'c5',true)">(b) a problem ✓</div>
+                <div class="choice" onclick="toggleMulti(this,'c5',false)">(c) a rescue</div>
+                <div class="choice" onclick="toggleMulti(this,'c5',true)">(d) a person's health ✓</div>
+            </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="q-card">
+            <div class="q-num">Question 6</div>
+            <div class="q-text">Which of the following is a <strong>decade</strong>?</div>
+            <div class="choices" id="c6">
+                <div class="choice" onclick="toggleMulti(this,'c6',true)">(a) the 1990s ✓</div>
+                <div class="choice" onclick="toggleMulti(this,'c6',false)">(b) from 1901 to 1999</div>
+                <div class="choice" onclick="toggleMulti(this,'c6',true)">(c) the 1700s ✓</div>
+                <div class="choice" onclick="toggleMulti(this,'c6',true)">(d) 120 months ✓</div>
+            </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="q-card">
+            <div class="q-num">Question 7</div>
+            <div class="q-text">Which of the following might one find in a <strong>wilderness</strong>?</div>
+            <div class="choices" id="c7">
+                <div class="choice" onclick="toggleMulti(this,'c7',false)">(a) schools</div>
+                <div class="choice" onclick="toggleMulti(this,'c7',true)">(b) trees ✓</div>
+                <div class="choice" onclick="toggleMulti(this,'c7',true)">(c) a herd of deer ✓</div>
+                <div class="choice" onclick="toggleMulti(this,'c7',false)">(d) a shopping mall</div>
+            </div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="q-card">
+            <div class="q-num">Question 8</div>
+            <div class="q-text">Which of the following would you NOT <strong>tolerate</strong>?</div>
+            <div class="choices" id="c8">
+                <div class="choice" onclick="toggleMulti(this,'c8',true)">(a) cheating ✓</div>
+                <div class="choice" onclick="toggleMulti(this,'c8',false)">(b) obedience</div>
+                <div class="choice" onclick="toggleMulti(this,'c8',true)">(c) crime ✓</div>
+                <div class="choice" onclick="toggleMulti(this,'c8',false)">(d) prosperity</div>
+            </div>
+        </div>
+
+        <button class="check-btn" onclick="checkSectionC()">✓ Check Section 14C</button>
+        <div class="score-box" id="scoreC" style="display:none"></div>
+    </div>
+
+    <!-- ==================== 14D: WORD STUDY (Latin Numbers) ==================== -->
+    <div id="secD" class="section">
+        <div class="section-title">14D — Word Study</div>
+        <div class="section-subtitle">The Greek word for "ten" is <em>deka</em>, giving us <em>decade</em>. Match the Latin number prefix (mon/bi/tri/quad) to complete each word.</div>
+
+        <div class="q-card" style="margin-bottom:20px">
+            <div class="q-text">
+                <strong>Prefixes to know:</strong><br>
+                <strong style="color:var(--gold)">mon / mono</strong> = one &nbsp;|&nbsp; 
+                <strong style="color:var(--gold)">bi</strong> = two &nbsp;|&nbsp; 
+                <strong style="color:var(--gold)">tri</strong> = three &nbsp;|&nbsp; 
+                <strong style="color:var(--gold)">quad</strong> = four
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">1. ______angle — a figure with three straight sides</div>
+            <div class="choices" id="d1">
+                <div class="choice" onclick="selectChoice(this,'d1','tri')">tri</div>
+                <div class="choice" onclick="selectChoice(this,'d1','tri')">bi</div>
+                <div class="choice" onclick="selectChoice(this,'d1','tri')">quad</div>
+                <div class="choice" onclick="selectChoice(this,'d1','tri')">mono</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">2. ______ruped — an animal with four legs</div>
+            <div class="choices" id="d2">
+                <div class="choice" onclick="selectChoice(this,'d2','quad')">tri</div>
+                <div class="choice" onclick="selectChoice(this,'d2','quad')">bi</div>
+                <div class="choice" onclick="selectChoice(this,'d2','quad')">quad</div>
+                <div class="choice" onclick="selectChoice(this,'d2','quad')">mono</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">3. ______archy — rule by one person, a king or queen</div>
+            <div class="choices" id="d3">
+                <div class="choice" onclick="selectChoice(this,'d3','mon')">mon</div>
+                <div class="choice" onclick="selectChoice(this,'d3','mon')">bi</div>
+                <div class="choice" onclick="selectChoice(this,'d3','mon')">tri</div>
+                <div class="choice" onclick="selectChoice(this,'d3','mon')">quad</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">4. ______tonous — sounding just one note without varying</div>
+            <div class="choices" id="d4">
+                <div class="choice" onclick="selectChoice(this,'d4','mono')">mono</div>
+                <div class="choice" onclick="selectChoice(this,'d4','mono')">bi</div>
+                <div class="choice" onclick="selectChoice(this,'d4','mono')">tri</div>
+                <div class="choice" onclick="selectChoice(this,'d4','mono')">quad</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">5. ______ped — a creature that walks upright on two legs</div>
+            <div class="choices" id="d5">
+                <div class="choice" onclick="selectChoice(this,'d5','bi')">mono</div>
+                <div class="choice" onclick="selectChoice(this,'d5','bi')">bi</div>
+                <div class="choice" onclick="selectChoice(this,'d5','bi')">tri</div>
+                <div class="choice" onclick="selectChoice(this,'d5','bi')">quad</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">6. ______pod — a stand with three legs for supporting a camera</div>
+            <div class="choices" id="d6">
+                <div class="choice" onclick="selectChoice(this,'d6','tri')">mono</div>
+                <div class="choice" onclick="selectChoice(this,'d6','tri')">bi</div>
+                <div class="choice" onclick="selectChoice(this,'d6','tri')">tri</div>
+                <div class="choice" onclick="selectChoice(this,'d6','tri')">quad</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">7. ______poly — control by one group over what is bought and sold</div>
+            <div class="choices" id="d7">
+                <div class="choice" onclick="selectChoice(this,'d7','mono')">mono</div>
+                <div class="choice" onclick="selectChoice(this,'d7','mono')">bi</div>
+                <div class="choice" onclick="selectChoice(this,'d7','mono')">tri</div>
+                <div class="choice" onclick="selectChoice(this,'d7','mono')">quad</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">8. ______cycle — a vehicle with two wheels</div>
+            <div class="choices" id="d8">
+                <div class="choice" onclick="selectChoice(this,'d8','bi')">mono</div>
+                <div class="choice" onclick="selectChoice(this,'d8','bi')">bi</div>
+                <div class="choice" onclick="selectChoice(this,'d8','bi')">tri</div>
+                <div class="choice" onclick="selectChoice(this,'d8','bi')">quad</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">9. ______ple — three times as many</div>
+            <div class="choices" id="d9">
+                <div class="choice" onclick="selectChoice(this,'d9','tri')">mono</div>
+                <div class="choice" onclick="selectChoice(this,'d9','tri')">bi</div>
+                <div class="choice" onclick="selectChoice(this,'d9','tri')">tri</div>
+                <div class="choice" onclick="selectChoice(this,'d9','tri')">quad</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">10. ______ruple — four times as many</div>
+            <div class="choices" id="d10">
+                <div class="choice" onclick="selectChoice(this,'d10','quad')">mono</div>
+                <div class="choice" onclick="selectChoice(this,'d10','quad')">bi</div>
+                <div class="choice" onclick="selectChoice(this,'d10','quad')">tri</div>
+                <div class="choice" onclick="selectChoice(this,'d10','quad')">quad</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">11. ______noculars — field glasses with two sets of lenses</div>
+            <div class="choices" id="d11">
+                <div class="choice" onclick="selectChoice(this,'d11','bi')">mono</div>
+                <div class="choice" onclick="selectChoice(this,'d11','bi')">bi</div>
+                <div class="choice" onclick="selectChoice(this,'d11','bi')">tri</div>
+                <div class="choice" onclick="selectChoice(this,'d11','bi')">quad</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">12. ______rangle — an open space with four straight sides</div>
+            <div class="choices" id="d12">
+                <div class="choice" onclick="selectChoice(this,'d12','quad')">mono</div>
+                <div class="choice" onclick="selectChoice(this,'d12','quad')">bi</div>
+                <div class="choice" onclick="selectChoice(this,'d12','quad')">tri</div>
+                <div class="choice" onclick="selectChoice(this,'d12','quad')">quad</div>
+            </div>
+        </div>
+
+        <button class="check-btn" onclick="checkSectionD()">✓ Check Section 14D</button>
+        <div class="score-box" id="scoreD" style="display:none"></div>
+    </div>
+
+    <!-- ==================== 14E: PASSAGE ==================== -->
+    <div id="secE" class="section">
+        <div class="section-title">14E — Passage: The Wizard of Menlo Park</div>
+        <div class="section-subtitle">Read the passage, then answer the questions below.</div>
+
+        <div class="passage-box">
+            <h3>⚡ The Wizard of Menlo Park</h3>
+            <p>Like other cities and towns in the late 1800s, New York City was a gloomy place at night. Streets were lit by flickering gas lights, if they were lit at all. Oil lamps or candles were all that people had to <strong>illuminate</strong> their homes. Thomas Edison had a better idea. In 1881, he built the world's first electric power station in Manhattan. He helped change New York into the <strong>brilliantly</strong> lit city we know today.</p>
+            <br>
+            <p>Edison was born in Ohio in 1847. When he was a small child, his family moved to Port Huron, Michigan. An attack of scarlet fever left him in <strong>delicate</strong> health. This worried his parents; they did not allow him to join in the <strong>boisterous</strong> games played at his school. The other children were not very <strong>tolerant</strong> of someone who stood apart from the rest, and young Edison had to suffer their <strong>taunts</strong>. His mother, who was a teacher, decided to take him out of school. She taught him at home, where he learned quickly. He asked many questions and liked to experiment on his own to find answers.</p>
+            <br>
+            <p>At that time, much of Michigan was <strong>wilderness</strong>. But the railroad was <strong>transforming</strong> America by making even the most remote places <strong>accessible</strong> to the rest of the country. When the railroad came to Port Huron, it <strong>provided</strong> Edison with his first job. At the age of twelve, he was given permission to sell newspapers and candy on the train that ran between his hometown and Detroit. He even printed his own newspaper, which he sold for three cents a copy.</p>
+            <br>
+            <p>At sixteen, he started working full-time on the railroad. For the next four years, he was <strong>employed</strong> as a telegraph operator in different towns. However, there were large portions of the day when he had nothing to do, and Thomas Edison hated to be <strong>idle</strong>. In addition, he <strong>required</strong> only five or six hours of sleep a night. So it was during this time that he began working on inventions along with his experiments.</p>
+            <br>
+            <p>At twenty-one, he invented an electrical vote counter, for which he was given a patent. This meant that the government identified him as the person who thought up the idea and protected it so that it could not be made or sold by others without his permission. When he was thirty, Edison established a research center at Menlo Park, New Jersey. There he and his <strong>associates</strong> ran what was really an inventions factory.</p>
+            <br>
+            <p>Over the next five <strong>decades</strong>, Edison was granted over a thousand patents by the United States government. Perhaps his most famous invention was the electric light bulb. Other inventions included the record player (which he called a phonograph) and the movie camera. These things seemed like magic to people; it isn't surprising that he became known as the "Wizard of Menlo Park." The once sickly child outlived most of his schoolmates — when he died in 1931, he was eighty-four years old.</p>
+        </div>
+
+        <!-- Passage Questions -->
+        <div class="q-card">
+            <div class="q-num">Question 1</div>
+            <div class="q-text">How does the passage make clear that there were few towns in Michigan during Edison's youth?</div>
+            <div class="choices" id="e1">
+                <div class="choice" onclick="selectChoice(this,'e1','wilderness')">It says much of Michigan was wilderness.</div>
+                <div class="choice" onclick="selectChoice(this,'e1','wilderness')">It says Michigan had many boisterous cities.</div>
+                <div class="choice" onclick="selectChoice(this,'e1','wilderness')">It says Edison loved city life in Michigan.</div>
+                <div class="choice" onclick="selectChoice(this,'e1','wilderness')">It says Michigan was a decade behind Ohio.</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 2</div>
+            <div class="q-text">In what way was the railroad important in Edison's early life?</div>
+            <div class="choices" id="e2">
+                <div class="choice" onclick="selectChoice(this,'e2','job')">It provided him with his first job selling newspapers and candy.</div>
+                <div class="choice" onclick="selectChoice(this,'e2','job')">It gave him a patent for inventing the steam engine.</div>
+                <div class="choice" onclick="selectChoice(this,'e2','job')">It paid for his mother's teaching school.</div>
+                <div class="choice" onclick="selectChoice(this,'e2','job')">It helped him establish a research center.</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 3</div>
+            <div class="q-text">With what invention do most people <strong>associate</strong> Edison?</div>
+            <div class="choices" id="e3">
+                <div class="choice" onclick="selectChoice(this,'e3','bulb')">The electric light bulb</div>
+                <div class="choice" onclick="selectChoice(this,'e3','bulb')">The telephone</div>
+                <div class="choice" onclick="selectChoice(this,'e3','bulb')">The steam engine</div>
+                <div class="choice" onclick="selectChoice(this,'e3','bulb')">The electrical vote counter</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 4</div>
+            <div class="q-text">What is the meaning of <strong>illuminate</strong> as it is used in the passage?</div>
+            <div class="choices" id="e4">
+                <div class="choice" onclick="selectChoice(this,'e4','light')">To light up; to supply with light</div>
+                <div class="choice" onclick="selectChoice(this,'e4','light')">To make a painting</div>
+                <div class="choice" onclick="selectChoice(this,'e4','light')">To transform completely</div>
+                <div class="choice" onclick="selectChoice(this,'e4','light')">To make accessible</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 5</div>
+            <div class="q-text">Why might Edison have been reluctant to go to school?</div>
+            <div class="choices" id="e5">
+                <div class="choice" onclick="selectChoice(this,'e5','taunt')">His classmates taunted him and were not tolerant of him because of his delicate health.</div>
+                <div class="choice" onclick="selectChoice(this,'e5','taunt')">He was too brilliant to learn anything at school.</div>
+                <div class="choice" onclick="selectChoice(this,'e5','taunt')">The school was located in a wilderness area.</div>
+                <div class="choice" onclick="selectChoice(this,'e5','taunt')">He needed to work on the railroad instead.</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 6</div>
+            <div class="q-text">What <strong>boisterous</strong> activities might Edison's schoolmates have engaged in?</div>
+            <div class="choices" id="e6">
+                <div class="choice" onclick="selectChoice(this,'e6','noisy')">Noisy, rough playground games and rowdy playing</div>
+                <div class="choice" onclick="selectChoice(this,'e6','noisy')">Quiet reading and studying in the library</div>
+                <div class="choice" onclick="selectChoice(this,'e6','noisy')">Careful science experiments in the lab</div>
+                <div class="choice" onclick="selectChoice(this,'e6','noisy')">Working on the railroad</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 7</div>
+            <div class="q-text">What details show that Edison's mother would not <strong>tolerate</strong> the behavior of Edison's classmates?</div>
+            <div class="choices" id="e7">
+                <div class="choice" onclick="selectChoice(this,'e7','pulled')">She pulled him out of school and taught him at home.</div>
+                <div class="choice" onclick="selectChoice(this,'e7','pulled')">She reported the classmates to the police.</div>
+                <div class="choice" onclick="selectChoice(this,'e7','pulled')">She enrolled him in a private school.</div>
+                <div class="choice" onclick="selectChoice(this,'e7','pulled')">She moved the family to a new city.</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 8</div>
+            <div class="q-text">What is the meaning of <strong>delicate</strong> as it is used in the passage?</div>
+            <div class="choices" id="e8">
+                <div class="choice" onclick="selectChoice(this,'e8','weak')">In poor health; weak</div>
+                <div class="choice" onclick="selectChoice(this,'e8','weak')">Easily broken or damaged</div>
+                <div class="choice" onclick="selectChoice(this,'e8','weak')">Needing care and skill</div>
+                <div class="choice" onclick="selectChoice(this,'e8','weak')">Very clever or smart</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 9</div>
+            <div class="q-text">Why did Edison have <strong>access</strong> to the train from Port Huron to Detroit?</div>
+            <div class="choices" id="e9">
+                <div class="choice" onclick="selectChoice(this,'e9','sell')">He was given permission to sell newspapers and candy on the train.</div>
+                <div class="choice" onclick="selectChoice(this,'e9','sell')">He was a telegraph operator on that route.</div>
+                <div class="choice" onclick="selectChoice(this,'e9','sell')">He invented the train's engine.</div>
+                <div class="choice" onclick="selectChoice(this,'e9','sell')">His father worked as the train's engineer.</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 10</div>
+            <div class="q-text">As a young man, how did Edison <strong>employ</strong> a lot of his free time?</div>
+            <div class="choices" id="e10">
+                <div class="choice" onclick="selectChoice(this,'e10','exp')">He used it to work on inventions and experiments.</div>
+                <div class="choice" onclick="selectChoice(this,'e10','exp')">He spent it being idle and sleeping.</div>
+                <div class="choice" onclick="selectChoice(this,'e10','exp')">He used it to sell newspapers on the train.</div>
+                <div class="choice" onclick="selectChoice(this,'e10','exp')">He spent it boisterously playing with friends.</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 11</div>
+            <div class="q-text">What is the meaning of <strong>idle</strong> as it is used in the passage?</div>
+            <div class="choices" id="e11">
+                <div class="choice" onclick="selectChoice(this,'e11','nothing')">Doing nothing; having nothing to do</div>
+                <div class="choice" onclick="selectChoice(this,'e11','nothing')">Working very hard</div>
+                <div class="choice" onclick="selectChoice(this,'e11','nothing')">Running an engine slowly</div>
+                <div class="choice" onclick="selectChoice(this,'e11','nothing')">Being tolerant of others</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 12</div>
+            <div class="q-text">How did Edison change New York City?</div>
+            <div class="choices" id="e12">
+                <div class="choice" onclick="selectChoice(this,'e12','electric')">He built the world's first electric power station, transforming it into a brilliantly lit city.</div>
+                <div class="choice" onclick="selectChoice(this,'e12','electric')">He invented the telephone and connected all its citizens.</div>
+                <div class="choice" onclick="selectChoice(this,'e12','electric')">He built a railroad that made the city accessible.</div>
+                <div class="choice" onclick="selectChoice(this,'e12','electric')">He established his research center there.</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 13</div>
+            <div class="q-text">How would you describe Edison's mind?</div>
+            <div class="choices" id="e13">
+                <div class="choice" onclick="selectChoice(this,'e13','brilliant')">Brilliant — always active, curious, and inventive</div>
+                <div class="choice" onclick="selectChoice(this,'e13','brilliant')">Idle — he preferred to do nothing</div>
+                <div class="choice" onclick="selectChoice(this,'e13','brilliant')">Boisterous — noisy and uncontrolled</div>
+                <div class="choice" onclick="selectChoice(this,'e13','brilliant')">Delicate — easily confused by hard problems</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 14</div>
+            <div class="q-text">What must one do to protect a new invention from being copied by others?</div>
+            <div class="choices" id="e14">
+                <div class="choice" onclick="selectChoice(this,'e14','patent')">Obtain a patent from the government</div>
+                <div class="choice" onclick="selectChoice(this,'e14','patent')">Keep it a secret in the wilderness</div>
+                <div class="choice" onclick="selectChoice(this,'e14','patent')">Employ associates to guard it</div>
+                <div class="choice" onclick="selectChoice(this,'e14','patent')">Transform it into something unrecognizable</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-num">Question 15</div>
+            <div class="q-text">How long did Edison live?</div>
+            <div class="choices" id="e15">
+                <div class="choice" onclick="selectChoice(this,'e15','84')">84 years (1847–1931)</div>
+                <div class="choice" onclick="selectChoice(this,'e15','84')">74 years (1847–1921)</div>
+                <div class="choice" onclick="selectChoice(this,'e15','84')">94 years (1847–1941)</div>
+                <div class="choice" onclick="selectChoice(this,'e15','84')">64 years (1847–1911)</div>
+            </div>
+        </div>
+
+        <button class="check-btn" onclick="checkSectionE()">✓ Check Section 14E</button>
+        <div class="score-box" id="scoreE" style="display:none"></div>
+    </div>
+
+</div><!-- end wrapper -->
+
+<script>
+// ============ SECTION NAVIGATION ============
+function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    // highlight nav btn
+    const btns = document.querySelectorAll('.nav-btn');
+    const map = { words:0, secA:1, secB:2, secC:3, secD:4, secE:5 };
+    if (map[id] !== undefined) btns[map[id]].classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ============ SINGLE CHOICE (14B, 14D, 14E) ============
+const singleAnswers = {};
+
+function selectChoice(el, qid, correct) {
+    if (el.classList.contains('correct') || el.classList.contains('wrong')) return;
+    // deselect previous in group
+    const parent = el.parentElement;
+    parent.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    singleAnswers[qid] = { el, correct };
+}
+
+function checkSingleGroup(ids) {
+    let score = 0;
+    ids.forEach(qid => {
+        const ans = singleAnswers[qid];
+        if (!ans) return;
+        const parent = ans.el.parentElement;
+        parent.querySelectorAll('.choice').forEach(c => {
+            if (c.classList.contains('selected')) {
+                const userVal = c.getAttribute('onclick').match(/,'([^']+)'\)/)[1];
+                if (userVal === ans.correct) {
+                    c.classList.remove('selected');
+                    c.classList.add('correct');
+                    score++;
+                } else {
+                    c.classList.remove('selected');
+                    c.classList.add('wrong');
+                    // show correct
+                    parent.querySelectorAll('.choice').forEach(ch => {
+                        const cv = ch.getAttribute('onclick').match(/,'([^']+)'\)/)[1];
+                        if (cv === ans.correct) ch.classList.add('correct');
+                    });
+                }
+            }
+        });
+    });
+    return score;
+}
+
+// ============ PHRASE MATCHING (14A) ============
+const phraseState = {};
+const phraseAnswers = {
+    a1: ['b','a'], a2: ['c','a'], a3: ['b','d'],
+    a4: ['d','c'], a5: ['b','a'], a6: ['b','a'],
+    a7: ['a','d'], a8: ['c','d'], a9: ['b','c'], a10: ['c','a']
+};
+const phraseSentences = {
+    a1: 'A brilliant child is one who is unusually smart.',
+    a2: 'To employ someone is to give that person a job.',
+    a3: 'To provide something is to need it... (wait — to provide is to give what is needed).',
+    a4: 'Access is a way of entering.',
+    a5: 'An associate is a business partner.',
+    a6: 'To illuminate a room is to light it up.',
+    a7: 'An idle person is one who is not doing anything productive.',
+    a8: 'A transformation is a complete change.',
+    a9: 'An accessible machine is one that is easy to get to.',
+    a10: 'To tolerate something is to put up with it.'
+};
+
+function selectPhrase(el) {
+    const qid = el.dataset.q;
+    if (!phraseState[qid]) phraseState[qid] = [];
+    if (el.classList.contains('correct') || el.classList.contains('wrong')) return;
+
+    if (el.classList.contains('selected')) {
+        el.classList.remove('selected');
+        phraseState[qid] = phraseState[qid].filter(v => v !== el.dataset.val);
+    } else {
+        if (phraseState[qid].length >= 2) {
+            // deselect the first one
+            const first = phraseState[qid].shift();
+            document.querySelector(`[data-q="${qid}"][data-val="${first}"]`)?.classList.remove('selected');
+        }
+        el.classList.add('selected');
+        phraseState[qid].push(el.dataset.val);
+    }
+
+    // Update combined sentence preview
+    const sentEl = document.getElementById(qid + '-sentence');
+    const selected = phraseState[qid];
+    if (selected.length === 2) {
+        const parts = selected.map(v => document.querySelector(`[data-q="${qid}"][data-val="${v}"]`)?.textContent.replace(/^\([a-d]\)\s*/,'') || '');
+        sentEl.textContent = parts.join(' ');
+    } else if (selected.length === 1) {
+        const part = document.querySelector(`[data-q="${qid}"][data-val="${selected[0]}"]`)?.textContent.replace(/^\([a-d]\)\s*/,'') || '';
+        sentEl.textContent = part + ' ...';
+    } else {
+        sentEl.textContent = 'Your sentence will appear here...';
+    }
+}
+
+function checkSectionA() {
+    let score = 0;
+    const total = 10;
+    Object.keys(phraseAnswers).forEach(qid => {
+        const correct = phraseAnswers[qid]; // [val1, val2]
+        const selected = phraseState[qid] || [];
+        const isCorrect = correct.every(v => selected.includes(v)) && selected.length === 2;
+        const container = document.getElementById(qid);
+        if (!container) return;
+        const btns = container.querySelectorAll('.phrase-btn');
+        btns.forEach(btn => {
+            btn.classList.remove('selected');
+            if (correct.includes(btn.dataset.val)) {
+                btn.classList.add(isCorrect ? 'correct' : 'correct');
+            } else if (selected.includes(btn.dataset.val) && !correct.includes(btn.dataset.val)) {
+                btn.classList.add('wrong');
+            }
+        });
+        if (isCorrect) score++;
+        // Update sentence
+        const sentEl = document.getElementById(qid + '-sentence');
+        if (sentEl) sentEl.textContent = phraseSentences[qid] || '';
+    });
+    showScore('scoreA', score, total);
+    updateProgress();
+}
+
+// ============ MULTI-SELECT (14C) ============
+const multiState = {};
+
+function toggleMulti(el, qid, isCorrect) {
+    if (el.classList.contains('correct') || el.classList.contains('wrong')) return;
+    if (!multiState[qid]) multiState[qid] = [];
+    const val = el.textContent;
+    if (el.classList.contains('selected')) {
+        el.classList.remove('selected');
+        multiState[qid] = multiState[qid].filter(v => v !== val);
+    } else {
+        el.classList.add('selected');
+        multiState[qid].push({el, isCorrect});
+    }
+}
+
+function checkSectionC() {
+    let score = 0;
+    // For 14C we just check each clicked item
+    document.querySelectorAll('#secC .choices').forEach(container => {
+        const qid = container.id;
+        let allCorrect = true;
+        let anySelected = false;
+        container.querySelectorAll('.choice').forEach(ch => {
+            if (ch.classList.contains('selected')) {
+                anySelected = true;
+                // determine if this is a correct choice from onclick
+                const onclickStr = ch.getAttribute('onclick');
+                const isCorrect = onclickStr.includes(',true)');
+                if (isCorrect) {
+                    ch.classList.remove('selected');
+                    ch.classList.add('correct');
+                } else {
+                    ch.classList.remove('selected');
+                    ch.classList.add('wrong');
+                    allCorrect = false;
+                }
+            } else {
+                // Show missed correct answers
+                const onclickStr = ch.getAttribute('onclick');
+                if (onclickStr && onclickStr.includes(',true)') && anySelected) {
+                    ch.style.opacity = '0.7';
+                }
+            }
+        });
+        if (allCorrect && anySelected) score++;
+    });
+    showScore('scoreC', score, 8);
+    updateProgress();
+}
+
+// ============ CHECK FUNCTIONS ============
+function checkSectionB() {
+    const ids = ['b1','b2','b3','b4','b5','b6','b7','b8','b9','b10'];
+    const score = checkSingleGroup(ids);
+    showScore('scoreB', score, 10);
+    updateProgress();
+}
+
+function checkSectionD() {
+    const ids = ['d1','d2','d3','d4','d5','d6','d7','d8','d9','d10','d11','d12'];
+    const score = checkSingleGroup(ids);
+    showScore('scoreD', score, 12);
+    updateProgress();
+}
+
+function checkSectionE() {
+    const ids = ['e1','e2','e3','e4','e5','e6','e7','e8','e9','e10','e11','e12','e13','e14','e15'];
+    const score = checkSingleGroup(ids);
+    showScore('scoreE', score, 15);
+    updateProgress();
+}
+
+// ============ SCORE DISPLAY ============
+function showScore(id, score, total) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const pct = Math.round(score/total*100);
+    let cls = pct >= 80 ? 'good' : pct >= 60 ? 'ok' : 'low';
+    let msg = pct >= 80 ? '⚡ Brilliant!' : pct >= 60 ? '💡 Keep going!' : '🔌 Review & retry!';
+    el.className = 'score-box ' + cls;
+    el.textContent = `${msg}  Score: ${score}/${total} (${pct}%)`;
+    el.style.display = 'block';
+    el.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+// ============ PROGRESS ============
+function updateProgress() {
+    const total = 55; // approximate total questions
+    const answered = document.querySelectorAll('.choice.correct, .choice.wrong, .phrase-btn.correct').length;
+    const pct = Math.min(100, Math.round(answered/total*100));
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressText').textContent = `Progress: ${pct}% complete`;
+}
+</script>
+</body>
+</html>
